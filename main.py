@@ -43,7 +43,7 @@ def main():
 
     # Random delay between 0 and 60 minutes to vary the time
     # This simulates the "4 to 5 hours" window when combined with a 4-hour schedule
-    delay = 0
+    delay = random.randint(0, 3600)
     print(f"Sleeping for {delay} seconds before sending...")
     time.sleep(delay)
 
