@@ -18,7 +18,7 @@ GROUP_IDS = [
     -1003694840892,
 ]
 
-BASE_MESSAGE = "👀 \n\nExplore 8M+ anime artworks\n\nCheck Bio & Start"
+BASE_MESSAGE = "🤫 You're not supposed to see this...\n\nSecret stash of 8M+ Anime Pics.\n\nStart via Link in Bio"
 
 EXTRA_EMOJI_VARIANTS = [" 🌸", " 🌸✨", " 🌸💮", " 🌸💗", " 🌸🔥", " 🌸💦", " 🌸🍑"]
 # =========================================
