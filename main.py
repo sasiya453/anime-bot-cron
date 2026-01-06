@@ -16,6 +16,12 @@ SESSION_STRING = os.environ.get("SESSION_STRING")
 # or usernames (e.g., "mygroupname") if you have joined them.
 GROUP_IDS = [
     -1003694840892,
+    -1001501258669,
+    -1001277604895,
+    -1002338265475,
+    -1002932620190,
+    -1002457394027,
+    -1001320690175,
 ]
 
 BASE_MESSAGE = "🤫 You're not supposed to see this...\n\nSecret stash of 8M+ Anime Pics.\n\nStart via Link in Bio"
