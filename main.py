@@ -1,57 +1,57 @@
 import time
 import random
-import requests
 import os
+import asyncio
+from telethon import TelegramClient
+from telethon.sessions import StringSession
 
 # ================ CONFIG =================
-# We get the token from GitHub Secrets for security
-BOT_TOKEN = os.environ.get("BOT_TOKEN")
+# Secrets from GitHub
+API_ID = os.environ.get("API_ID")
+API_HASH = os.environ.get("API_HASH")
+SESSION_STRING = os.environ.get("SESSION_STRING")
 
+# List of Group IDs or Usernames
+# Note: For user accounts, it's safer to use integers (chat IDs) 
+# or usernames (e.g., "mygroupname") if you have joined them.
 GROUP_IDS = [
     -1003694840892,
 ]
 
-BASE_MESSAGE = "👀🔞 (adult only)\n\nExplore 8M+ anime artworks\n\nCheck Bio & Start"
+BASE_MESSAGE = "👀 \n\nExplore 8M+ anime artworks\n\nCheck Bio & Start"
 
 EXTRA_EMOJI_VARIANTS = [" 🌸", " 🌸✨", " 🌸💮", " 🌸💗", " 🌸🔥", " 🌸💦", " 🌸🍑"]
-
-API_URL = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 # =========================================
 
 def build_message():
     extra = random.choice(EXTRA_EMOJI_VARIANTS)
     return BASE_MESSAGE + extra
 
-def send_message(chat_id, text):
-    payload = {"chat_id": chat_id, "text": text}
-    try:
-        response = requests.post(API_URL, data=payload, timeout=10)
-    except Exception as e:
-        print(f"[ERROR] {chat_id}: {e}")
-        return False
-    
-    if not response.ok:
-        print(f"[ERROR] {chat_id}: {response.text}")
-        return False
-    print(f"[OK] Sent to {chat_id}")
-    return True
-
-def main():
-    if not BOT_TOKEN:
-        print("Error: BOT_TOKEN not found.")
+async def main():
+    if not API_ID or not API_HASH or not SESSION_STRING:
+        print("Error: Missing Secrets (API_ID, API_HASH, or SESSION_STRING).")
         return
 
-    # Random delay between 0 and 60 minutes to vary the time
-    # This simulates the "4 to 5 hours" window when combined with a 4-hour schedule
+    # Random delay (Keep your original logic)
     delay = random.randint(60, 600)
     print(f"Sleeping for {delay} seconds before sending...")
     time.sleep(delay)
 
-    for chat_id in GROUP_IDS:
-        msg = build_message()
-        send_message(chat_id, msg)
-        # Small pause between groups
-        time.sleep(random.randint(5, 20))
+    print("Connecting to Telegram...")
+    # Initialize the client with the session string
+    async with TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH) as client:
+        for chat_id in GROUP_IDS:
+            msg = build_message()
+            try:
+                # Send message as YOU
+                await client.send_message(chat_id, msg)
+                print(f"[OK] Sent to {chat_id}")
+            except Exception as e:
+                print(f"[ERROR] Could not send to {chat_id}: {e}")
+            
+            # Small pause between groups to avoid flood wait errors
+            await asyncio.sleep(random.randint(5, 20))
 
 if __name__ == "__main__":
-    main()
+    # Telethon is async, so we run it inside an event loop
+    asyncio.run(main())
