@@ -37,7 +37,7 @@ async def main():
         return
 
     # Random delay before starting
-    delay = random.randint(60, 600)
+    delay = random.randint(10, 60)
     print(f"Sleeping for {delay} seconds before sending...")
     await asyncio.sleep(delay)
 
