@@ -1,3 +1,4 @@
+import time
 import random
 import os
 import asyncio
@@ -21,31 +22,38 @@ GROUP_IDS = [
     -1003694840892,
 ]
 
-# List of "Hot" Emojis
-HOT_EMOJIS = ["🔥", "🍑", "💦", "🥵", "💋", "🌶️", "😈", "👅", "🤤"]
+# Variations of the message to avoid spam detection
+MESSAGE_VARIANTS = [
+    "8 Million+ anime artworks 🌸📥",
+    "✨ 8 Million+ anime artworks 🌸📥",
+    "**8 Million+ anime artworks** 🌸📥",
+    "8 Million+ anime artworks 🌸📥 🔥",
+    "🌸 8 Million+ anime artworks 📥",
+    "__8 Million+ anime artworks__ 🌸📥",
+    "⚡ 8 Million+ anime artworks 🌸📥",
+    "8 Million+ anime artworks 🌸📥 ✨",
+]
 # =========================================
 
 def build_message():
-    # Selects 2 random emojis from the list (can include duplicates like 🔥🔥)
-    # k=2 means pick 2 items
-    picks = random.choices(HOT_EMOJIS, k=2)
-    return "".join(picks)
+    # Pick one random variation from the list
+    return random.choice(MESSAGE_VARIANTS)
 
 async def main():
     if not API_ID or not API_HASH or not SESSION_STRING:
         print("Error: Missing Secrets (API_ID, API_HASH, or SESSION_STRING).")
         return
 
-    # Random delay before starting
+    # Random delay (10 to 60 seconds) to fit within the 5-minute workflow timeout
     delay = random.randint(10, 60)
     print(f"Sleeping for {delay} seconds before sending...")
-    await asyncio.sleep(delay)
+    time.sleep(delay)
 
     print("Connecting to Telegram...")
     # Initialize the client with the session string
     async with TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH) as client:
         for chat_id in GROUP_IDS:
-            msg = build_message() # Generates the 2 emoji combo
+            msg = build_message()
             try:
                 # Send message as YOU
                 await client.send_message(chat_id, msg)
@@ -57,5 +65,4 @@ async def main():
             await asyncio.sleep(random.randint(5, 20))
 
 if __name__ == "__main__":
-    # Telethon is async, so we run it inside an event loop
     asyncio.run(main())
