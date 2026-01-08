@@ -1,4 +1,3 @@
-import time
 import random
 import os
 import asyncio
@@ -11,47 +10,46 @@ API_ID = os.environ.get("API_ID")
 API_HASH = os.environ.get("API_HASH")
 SESSION_STRING = os.environ.get("SESSION_STRING")
 
-# List of Group IDs or Usernames
-# Note: For user accounts, it's safer to use integers (chat IDs) 
-# or usernames (e.g., "mygroupname") if you have joined them.
+# List of Group IDs
 GROUP_IDS = [
-    -1003694840892,
-    -1001501258669,
-    -1001277604895,
-    -1002338265475,
     -1002932620190,
-    -1002457394027,
-    -1001320690175,
+    -1001277604895,
+    -1001222853489,
+    -1001764420368,
+    -1002811254612,
+    -1001806767670,
+    -1003694840892,
 ]
 
-BASE_MESSAGE = "🤫 You're not supposed to see this...\n\nSecret stash of 8M+ Anime Pics.\n\nStart via Link in Bio"
-
-EXTRA_EMOJI_VARIANTS = [" 🌸", " 🌸✨", " 🌸💮", " 🌸💗", " 🌸🔥", " 🌸💦", " 🌸🍑"]
+# List of "Hot" Emojis
+HOT_EMOJIS = ["🔥", "🍑", "💦", "🥵", "💋", "🌶️", "😈", "👅", "🤤"]
 # =========================================
 
 def build_message():
-    extra = random.choice(EXTRA_EMOJI_VARIANTS)
-    return BASE_MESSAGE + extra
+    # Selects 2 random emojis from the list (can include duplicates like 🔥🔥)
+    # k=2 means pick 2 items
+    picks = random.choices(HOT_EMOJIS, k=2)
+    return "".join(picks)
 
 async def main():
     if not API_ID or not API_HASH or not SESSION_STRING:
         print("Error: Missing Secrets (API_ID, API_HASH, or SESSION_STRING).")
         return
 
-    # Random delay (Keep your original logic)
+    # Random delay before starting
     delay = random.randint(60, 600)
     print(f"Sleeping for {delay} seconds before sending...")
-    time.sleep(delay)
+    await asyncio.sleep(delay)
 
     print("Connecting to Telegram...")
     # Initialize the client with the session string
     async with TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH) as client:
         for chat_id in GROUP_IDS:
-            msg = build_message()
+            msg = build_message() # Generates the 2 emoji combo
             try:
                 # Send message as YOU
                 await client.send_message(chat_id, msg)
-                print(f"[OK] Sent to {chat_id}")
+                print(f"[OK] Sent '{msg}' to {chat_id}")
             except Exception as e:
                 print(f"[ERROR] Could not send to {chat_id}: {e}")
             
