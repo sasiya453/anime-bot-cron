@@ -34,14 +34,14 @@ GROUP_IDS = [
 
 # Variations of the message to avoid spam detection
 MESSAGE_VARIANTS = [
-    "8 Million+ anime artworks 🌸📥",
-    "✨ 8 Million+ anime artworks 🌸📥",
-    "**8 Million+ anime artworks** 🌸📥",
-    "8 Million+ anime artworks 🌸📥 🔥",
-    "🌸 8 Million+ anime artworks 📥",
-    "__8 Million+ anime artworks__ 🌸📥",
-    "⚡ 8 Million+ anime artworks 🌸📥",
-    "8 Million+ anime artworks 🌸📥 ✨",
+    "8 Million+ anime artworks 🌸📥₵ⱧɆ₵₭ ฿łØ",
+    "✨ 8 Million+ anime artworks 🌸📥₵ⱧɆ₵₭ ฿łØ",
+    "**8 Million+ anime artworks** 🌸📥₵ⱧɆ₵₭ ฿łØ",
+    "8 Million+ anime artworks 🌸📥 🔥₵ⱧɆ₵₭ ฿łØ",
+    "🌸 8 Million+ anime artworks 📥₵ⱧɆ₵₭ ฿łØ",
+    "__8 Million+ anime artworks__ 🌸📥₵ⱧɆ₵₭ ฿łØ",
+    "⚡ 8 Million+ anime artworks 🌸📥₵ⱧɆ₵₭ ฿łØ",
+    "8 Million+ anime artworks 🌸📥 ✨₵ⱧɆ₵₭ ฿łØ",
 ]
 # =========================================
 
