@@ -33,6 +33,8 @@ GROUP_IDS = [
     -1002028152887,
     -1002603637867,
     -1001684414118,
+    -1002549345673,
+    -1002623615702,
 ]
 
 # Variations of the message to avoid spam detection
